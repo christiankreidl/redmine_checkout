@@ -1,7 +1,7 @@
 require 'redmine'
 
 
-Rails.configuration.to_prepare do
+RedmineApp::Application.config.after_initialize do
   require_dependency 'checkout/settings_controller_patch'
 
   require_dependency 'checkout/repositories_helper_patch'
@@ -25,7 +25,7 @@ Redmine::Plugin.register :redmine_checkout do
   description 'Add links to the actual repository to the repository view.'
   version '0.6-BETA'
 
-  requires_redmine :version_or_higher => '2.0.3'
+  requires_redmine :version_or_higher => '3.0.0'
 
   settings_defaults = HashWithIndifferentAccess.new({
     'use_zero_clipboard' => '1',
@@ -40,11 +40,17 @@ EOF
   })
 
   # this is needed for setting the defaults
-  require 'checkout/repository_patch'
+  commands = {
+    'Bazaar' => 'bzr checkout',
+    'Cvs' => 'cvs checkout',
+    'Darcs' => 'darcs get',
+    'Git' => 'git clone',
+    'Mercurial' => 'hg clone',
+    'Subversion' => 'svn checkout'
+  }
+  subtree_checkout_repos = ["Subversion", "Cvs"]
 
   CheckoutHelper.supported_scm.each do |scm|
-    klazz = Repository.const_get(scm)
-
     settings_defaults["description_#{scm}"] = ''
     settings_defaults["overwrite_description_#{scm}"] = '0'
     settings_defaults["display_command_#{scm}"] = '0'
@@ -55,12 +61,12 @@ EOF
     #   permission => Access depends on redmine permissions
     settings_defaults["protocols_#{scm}"] = [HashWithIndifferentAccess.new({
       :protocol => scm,
-      :command => klazz.checkout_default_command,
+      :command => commands[scm] || '',
       :regex => '',
       :regex_replacement => '',
       :fixed_url => '',
       :access => 'permission',
-      :append_path => (klazz.allow_subtree_checkout? ? '1' : '0'),
+      :append_path => (subtree_checkout_repos.include?(scm) ? '1' : '0'),
       :is_default => '1',
       :display_login => '0'
     })]
