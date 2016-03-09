@@ -34,5 +34,6 @@
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag 'checkout', :plugin => 'redmine_checkout' %>
   <%= javascript_include_tag 'checkout', :plugin => 'redmine_checkout' %>
+  <%= (javascript_include_tag 'checkout_clip', :plugin => 'redmine_checkout') if Setting.checkout_use_zero_clipboard? %>
   <%= (javascript_include_tag 'ZeroClipboard', :plugin => 'redmine_checkout') if Setting.checkout_use_zero_clipboard? %>
 <% end %>
