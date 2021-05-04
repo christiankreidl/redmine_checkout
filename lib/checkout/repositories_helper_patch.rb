@@ -6,8 +6,8 @@ module Checkout
       base.send(:include, InstanceMethods)
 
       base.class_eval do
-        alias_method_chain :repository_field_tags, :checkout
-        alias_method_chain :scm_select_tag, :javascript
+        Module#prepend :repository_field_tags, :checkout
+        Module#prepend :scm_select_tag, :javascript
       end
     end
 

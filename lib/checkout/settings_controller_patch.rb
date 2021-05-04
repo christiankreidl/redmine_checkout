@@ -8,7 +8,7 @@ module Checkout
       base.class_eval do
         unloadable
       
-        alias_method_chain :edit, :checkout
+        Module#prepend :edit, :checkout
       end
     end
     

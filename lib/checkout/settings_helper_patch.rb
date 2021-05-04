@@ -6,7 +6,7 @@ module Checkout
       base.send(:include, InstanceMethods)
 
       base.class_eval do
-        alias_method_chain :administration_settings_tabs, :checkout
+        Module#prepend :administration_settings_tabs, :checkout
       end
     end
 
