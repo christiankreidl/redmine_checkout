@@ -1,4 +1,4 @@
-class ChangeDescriptionStorageFormat < ActiveRecord::Migration
+class ChangeDescriptionStorageFormat < ActiveRecord::Migration[4.2]
   class Repository < ActiveRecord::Base
     serialize :checkout_settings, Hash
 

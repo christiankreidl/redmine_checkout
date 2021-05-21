@@ -1,4 +1,4 @@
-class RemoveDefaults < ActiveRecord::Migration
+class RemoveDefaults < ActiveRecord::Migration[4.2]
   def self.up
     change_column :repositories, :checkout_url_type, :string, :default => nil, :null => true
     change_column :repositories, :checkout_url, :string, :default => nil, :null => true

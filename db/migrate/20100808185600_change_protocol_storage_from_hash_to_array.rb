@@ -1,4 +1,4 @@
-class ChangeProtocolStorageFromHashToArray < ActiveRecord::Migration
+class ChangeProtocolStorageFromHashToArray < ActiveRecord::Migration[4.2]
   class Repository < ActiveRecord::Base
     serialize :checkout_settings, Hash
 

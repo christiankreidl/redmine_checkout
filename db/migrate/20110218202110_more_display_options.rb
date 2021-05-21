@@ -1,4 +1,4 @@
-class MoreDisplayOptions < ActiveRecord::Migration
+class MoreDisplayOptions < ActiveRecord::Migration[4.2]
   def self.up
     settings = Setting.plugin_redmine_checkout
     

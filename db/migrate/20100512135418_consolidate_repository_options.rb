@@ -1,4 +1,4 @@
-class ConsolidateRepositoryOptions < ActiveRecord::Migration
+class ConsolidateRepositoryOptions < ActiveRecord::Migration[4.2]
   class Repository < ActiveRecord::Base
     def self.inheritance_column
       # disable single table inheritance

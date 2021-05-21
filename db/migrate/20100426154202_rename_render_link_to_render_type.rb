@@ -1,4 +1,4 @@
-class RenameRenderLinkToRenderType < ActiveRecord::Migration
+class RenameRenderLinkToRenderType < ActiveRecord::Migration[4.2]
   def self.up
     render_link = Setting.plugin_redmine_checkout.delete 'render_link'
     unless  render_link.nil?
