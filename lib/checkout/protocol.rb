@@ -47,7 +47,7 @@ module Checkout
       if repository.checkout_display_command?
         cmd = self.command.present? ? self.command.strip + " " : ""
       end
-      cmd + URI.escape(self.url(path))
+      cmd + Addressable::URI.escape(self.url(path))
     end
 
     def command
