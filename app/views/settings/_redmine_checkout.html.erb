@@ -1,1 +1,46 @@
-<%= raw l(:help_moved_settings, :link => link_to(l(:label_settings_location), {:controller => 'settings', :action => 'index', :tab => 'checkout'})) %>
+<%= javascript_tag do %>
+protocolForms = {};
+
+$(function() {
+  $('#tab-content-checkout').find('fieldset.collapsed').each(function() {
+    $(this).children('div').hide();
+  });
+  <%
+    CheckoutHelper.supported_scm.select{|scm| Setting.enabled_scm.include?(scm)}.each do |scm|
+      next if Setting.plugin_redmine_checkout["overwrite_description_#{scm}"].to_i != 0
+  -%>
+  $($('#settings_description_<%= scm %>').parents('div').get(2)).hide();
+  <%- end %>
+});
+<% end %>
+
+
+<p>
+ <label><%= l('setting_checkout_display_checkout_info') %></label>
+ <%= select_tag "settings[display_info]", options_for_select([
+  [l(:label_display_everywhere), 'everywhere'],
+  [l(:label_display_browse), 'browse'],
+  [l(:label_display_none), 'none']
+],{ selected: settings['display_info'] }
+) %>
+</p>
+
+<p>
+ <label><%= l('field_description') %></label>
+ <%= text_area_tag "settings[description_Abstract]", settings['description_Abstract'], :cols => 60, :rows => 5, :class => 'wiki-edit'%>
+ <%= wikitoolbar_for "settings_description_Abstract" %>
+</p>
+
+<% CheckoutHelper.supported_scm.select{|scm| Setting.enabled_scm.include?(scm)}.each do |scm| -%>
+<fieldset class="collapsible collapsed">
+  <legend onclick="toggleFieldset(this);"><%= Repository.const_get(scm).scm_name %></legend>
+  <div>
+   <%= render partial: 'checkout_scm', locals: {scm: scm, settings: settings} %>
+  </div>
+</fieldset>
+<%- end %>
+
+<% content_for :header_tags do %>
+  <%= javascript_include_tag 'subform', :plugin => 'redmine_checkout' %>
+  <%= stylesheet_link_tag 'checkout', :plugin => 'redmine_checkout' %>
+<% end %>

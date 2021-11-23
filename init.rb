@@ -70,7 +70,7 @@ EOF
     })]
   end
 
-  settings :default => settings_defaults, :partial => 'redmine_checkout'
+  settings :default => settings_defaults, :partial => 'settings/redmine_checkout'
 
   Redmine::WikiFormatting::Macros.register do
     desc <<-EOF
