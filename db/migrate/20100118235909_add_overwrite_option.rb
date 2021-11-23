@@ -1,4 +1,4 @@
-class AddOverwriteOption < ActiveRecord::Migration
+class AddOverwriteOption < ActiveRecord::Migration[4.2]
   def self.up
     add_column :repositories, :checkout_url_overwrite, :boolean, :default => false, :null => false
     

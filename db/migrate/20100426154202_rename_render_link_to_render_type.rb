@@ -1,4 +1,4 @@
-class RenameRenderLinkToRenderType < ActiveRecord::Migration
+class RenameRenderLinkToRenderType < ActiveRecord::Migration[4.2]
   def self.up
     render_link = Setting.plugin_redmine_checkout.delete 'render_link'
     unless  render_link.nil?
@@ -6,10 +6,10 @@ class RenameRenderLinkToRenderType < ActiveRecord::Migration
       Setting.plugin_redmine_checkout = Setting.plugin_redmine_checkout
     end
     
-    #add_column :repositories, :render_type, :string, :default => 'url', :null => false
+    add_column :repositories, :render_type, :string, :default => 'url', :null => false
     
-    #Repository.update_all({:render_type => 'link'}, :render_link => true)
-    #Repository.update_all({:render_type => 'url'}, ["render_link != ?", true])
+    Repository.where(:render_link => true).update_all(:render_type => 'link')
+    Repository.where('render_link != ?', true).update_all(:render_type => 'url')
     
     remove_column :repositories, :render_link
   end
@@ -23,8 +23,8 @@ class RenameRenderLinkToRenderType < ActiveRecord::Migration
     
     add_column :repositories, :render_link, :boolean, :null => true
     
-    Repository.update_all({:render_link => true}, :render_type => 'link')
-    Repository.update_all({:render_link => false}, ["render_type != ?", 'link'])
+    Repository.where(:render_type => 'link').update_all(:render_link => true)
+    Repository.where(':render_type != ?', 'link').update_all(:render_link => false)
     
     remove_column :repositories, :render_type
   end
