@@ -1,4 +1,4 @@
-class AddCheckoutUrlInfo < ActiveRecord::Migration[4.2]
+class AddCheckoutUrlInfo < ActiveRecord::Migration
   def self.up
     add_column :repositories, :checkout_url_type, :string, :default => 'none', :null => false
     add_column :repositories, :checkout_url, :string, :default => '', :null => false

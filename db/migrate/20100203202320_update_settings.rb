@@ -1,4 +1,4 @@
-class UpdateSettings < ActiveRecord::Migration[4.2]
+class UpdateSettings < ActiveRecord::Migration
   def self.up
     settings = Setting.plugin_redmine_checkout
     unless settings.class == Hash

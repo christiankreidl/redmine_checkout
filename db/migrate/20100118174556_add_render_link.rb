@@ -1,4 +1,4 @@
-class AddRenderLink < ActiveRecord::Migration[4.2]
+class AddRenderLink < ActiveRecord::Migration
   def self.up
     add_column :repositories, :render_link, :boolean, :null => true
   end

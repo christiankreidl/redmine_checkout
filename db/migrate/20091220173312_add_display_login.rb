@@ -1,4 +1,4 @@
-class AddDisplayLogin < ActiveRecord::Migration[4.2]
+class AddDisplayLogin < ActiveRecord::Migration
   def self.up
     add_column :repositories, :display_login, :string, :default => 'none', :null => false
   end

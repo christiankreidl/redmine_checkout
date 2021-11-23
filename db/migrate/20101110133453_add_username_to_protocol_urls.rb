@@ -1,4 +1,4 @@
-class AddUsernameToProtocolUrls < ActiveRecord::Migration[4.2]
+class AddUsernameToProtocolUrls < ActiveRecord::Migration
   class Repository < ActiveRecord::Base
     serialize :checkout_settings, Hash
 
