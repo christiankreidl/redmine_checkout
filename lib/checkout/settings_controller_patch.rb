@@ -3,22 +3,19 @@ require_dependency 'settings_controller'
 module Checkout
   module SettingsControllerPatch
     def self.included(base) # :nodoc:
-      base.send(:include, InstanceMethods)
-
       base.class_eval do
+        prepend InstanceMethods
         unloadable
-      
-        Module#prepend :edit, :checkout
       end
     end
     
     module InstanceMethods
-      def edit_with_checkout
-        if request.post? && params['tab'] == 'checkout'
+      # when saving plugin settings:
+      def plugin
+        if request.post? && params['id'] == 'redmine_checkout'
           if params['settings'] && params['settings'].is_a?(ActionController::Parameters)
             settings = HashWithIndifferentAccess.new
-            (params[:settings] || {}).each do |name, value|
-              if name = name.to_s.slice(/checkout_(.+)/, 1)
+            (params['settings'] || {}).each do |name, value|
                 case value
                 when Array
                   # remove blank values in array settings
@@ -32,10 +29,9 @@ module Checkout
             end
                         
             Setting.plugin_redmine_checkout = settings
-            params[:settings] = {}
+            params[:settings] = settings
           end
-        end
-        edit_without_checkout
+        super
       end
     end
   end

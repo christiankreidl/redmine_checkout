@@ -3,29 +3,28 @@ require_dependency 'repositories_helper'
 module Checkout
   module RepositoriesHelperPatch
     def self.included(base) # :nodoc:
-      base.send(:include, InstanceMethods)
-
       base.class_eval do
-        Module#prepend :repository_field_tags, :checkout
-        Module#prepend :scm_select_tag, :javascript
+        prepend InstanceMethods
       end
     end
 
     module InstanceMethods
-      def repository_field_tags_with_checkout(form, repository)
-        tags = repository_field_tags_without_checkout(form, repository) || ""
+
+      # add checkout setting to repository settings
+      def repository_field_tags(form, repository)
+        tags = super(form, repository) || ""
         return tags if repository.class.name == "Repository"
 
         tags << controller.render_to_string(:partial => 'projects/settings/repository_checkout', :locals => {:form => form, :repository => repository, :scm => repository.type.demodulize}).html_safe
       end
 
-      def scm_select_tag_with_javascript(*args)
+      def scm_select_tag(*args)
         heads_for_wiki_formatter
         content_for :header_tags do
           javascript_include_tag('subform', :plugin => 'redmine_checkout') +
           stylesheet_link_tag('checkout', :plugin => 'redmine_checkout')
         end
-        scm_select_tag_without_javascript(*args)
+        super(*args)
       end
     end
   end
