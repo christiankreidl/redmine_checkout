@@ -1,19 +1,32 @@
-<div>
-  <p><%= setting_check_box "checkout_overwrite_description_#{scm}", :label => :setting_checkout_overwrite_description, :onclick => <<-EOF
-    $($('#settings_checkout_description_#{scm}').parents('div').get(1)).slideToggle();
-  EOF
-  %></p>
-  
+
+  <p>
+    <label><%= l('setting_checkout_overwrite_description') %></label>
+    <%= hidden_field_tag "settings[overwrite_description_#{scm}]", 0 %>
+    <%= check_box_tag "settings[overwrite_description_#{scm}]", 1, settings["overwrite_description_#{scm}"].to_i == 1, :onclick => "$($('#settings_description_#{scm}').parents('div').get(2)).slideToggle();" %>
+  </p>
+    
   <div>
-    <p><%= setting_text_area "checkout_description_#{scm}", :cols => 60, :rows => 5, :class => 'wiki-edit', :label => :field_description %></p>
-    <%= wikitoolbar_for "settings_checkout_description_#{scm}" %>
+    <p>
+      <label><%= l('field_description') %></label>
+      <%= text_area_tag "settings[description_#{scm}]", settings["description_#{scm}"], :cols => 60, :rows => 5, :class => 'wiki-edit' %>
+    </p>
+    <%= wikitoolbar_for "settings_description_#{scm}" %>
   </div>
   
-  <p><%= setting_check_box "checkout_display_command_#{scm}", :label => :field_checkout_display_command %></p>
+    <p>
+      <label><%= l('field_checkout_display_command') %></label>
+      <%= hidden_field_tag "settings[display_command_#{scm}]", 0 %>
+      <%= check_box_tag "settings[display_command_#{scm}]", 1, settings["display_command_#{scm}"].to_i == 1 %>
+    </p>
 
   <%= javascript_tag do -%>
     <% repo = "Repository::#{scm}".constantize %>
-    var subform = new Subform('<%= escape_javascript(render(:partial => "checkout_protocol", :locals => {:protocol => Checkout::Protocol.new({:protocol => scm, :append_path => (repo.allow_subtree_checkout? ? '1' : '0'), :command => repo.checkout_default_command}), :scm => scm})) %>',<%= Setting.send("checkout_protocols_#{scm}").length %>,'settings_checkout_protocols_<%= scm %>');
+    var subform = new Subform('<%= escape_javascript(
+        render(:partial => "checkout_protocol", :locals => {:protocol => Checkout::Protocol.new({:protocol => scm, :append_path => (repo.allow_subtree_checkout? ? '1' : '0'), :command => repo.checkout_default_command}), :scm => scm})) 
+      %>',
+      <%= settings["protocols_#{scm}"].length || 0 %>,
+      'settings_checkout_protocols_<%= scm %>'
+    );
     protocolForms['<%= scm %>'] = subform;
   <% end -%>
   <p><label><%=l :label_protocol_plural %></label><%=l :help_checkout_protocols %></p>
@@ -30,10 +43,10 @@
       <th class="protocol_delete"           ></th>
     </tr></thead>
     <tbody id="settings_checkout_protocols_<%= scm %>">
-      <% Setting.send("checkout_protocols_#{scm}").each_with_index do |protocol, index| %>
+      <% settings["protocols_#{scm}"].each_with_index do |protocol, index| %>
         <%= render :partial => 'checkout_protocol', :locals => {:protocol => Checkout::Protocol.new(protocol), :scm => scm, :index => index, :classes => cycle('odd', 'even')} %>
       <% end %>
     </tbody>
   </table>
   <div style="text-align: right"><%= link_to_function l(:button_add_protocol), "protocolForms['#{scm}'].add()", {:class => "icon icon-add"} %></div>
-</div>
+

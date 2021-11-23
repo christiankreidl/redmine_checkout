@@ -58,10 +58,10 @@ module Checkout
         if checkout_overwrite?
           checkout_settings['checkout_description']
         else
-          if type.present? && CheckoutHelper.supported_scm.include?(type.demodulize) && Setting.send("checkout_overwrite_description_#{type.demodulize}?")
-            Setting.send("checkout_description_#{type.demodulize}")
+          if type.present? && CheckoutHelper.supported_scm.include?(type.demodulize) && Setting.plugin_redmine_checkout["overwrite_description_#{type.demodulize}"].to_i > 0
+            Setting.plugin_redmine_checkout["description_#{type.demodulize}"]
           else
-            Setting.send("checkout_description_Abstract")
+            Setting.plugin_redmine_checkout["description_Abstract"]
           end
         end
       end
@@ -72,7 +72,7 @@ module Checkout
             if checkout_overwrite?
               protocols = checkout_settings['checkout_protocols'] || []
             else
-              protocols = Setting.send("checkout_protocols_#{type.demodulize}") || []
+              protocols = Setting.plugin_redmine_checkout["protocols_#{type.demodulize}"] || []
             end
           else
             protocols = []
@@ -107,7 +107,7 @@ module Checkout
         if checkout_overwrite?
           checkout_settings['checkout_display_command']
         else
-          Setting.send("checkout_display_command_#{type.demodulize}")
+          Setting.plugin_redmine_checkout["display_command_#{type.demodulize}"]
         end
       end
 

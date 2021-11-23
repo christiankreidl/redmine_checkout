@@ -8,8 +8,8 @@ module Checkout
     #
     def view_repositories_show_contextual(context={})
       return unless context[:repository].present? && (
-        Setting.checkout_display_checkout_info == 'everywhere' || (
-          Setting.checkout_display_checkout_info == 'browse' &&
+        Setting.plugin_redmine_checkout["display_info"] == 'everywhere' || (
+          Setting.plugin_redmine_checkout["display_info"] == 'browse' &&
           context[:request].params[:action] == 'show'
         )
       )
