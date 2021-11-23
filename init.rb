@@ -1,7 +1,7 @@
 require 'redmine'
 
 
-RedmineApp::Application.config.after_initialize do
+Rails.configuration.to_prepare do
   require_dependency 'checkout/settings_controller_patch'
 
   require_dependency 'checkout/repositories_helper_patch'
@@ -19,13 +19,13 @@ require 'checkout/view_helper'
 
 Redmine::Plugin.register :redmine_checkout do
   name 'Redmine Checkout plugin'
-  url 'https://github.com/hanjos/redmine_checkout'
+  url 'https://github.com/christiankreidl/redmine_checkout'
   author 'Holger Just et al.'
   author_url 'http://meine-er.de'
   description 'Add links to the actual repository to the repository view.'
-  version '0.6-BETA'
+  version '0.7'
 
-  requires_redmine :version_or_higher => '3.0.0'
+  requires_redmine :version_or_higher => '4.0.0'
 
   settings_defaults = HashWithIndifferentAccess.new({
     'display_checkout_info' =>  'everywhere',
@@ -38,17 +38,11 @@ EOF
   })
 
   # this is needed for setting the defaults
-  commands = {
-    'Bazaar' => 'bzr checkout',
-    'Cvs' => 'cvs checkout',
-    'Darcs' => 'darcs get',
-    'Git' => 'git clone',
-    'Mercurial' => 'hg clone',
-    'Subversion' => 'svn checkout'
-  }
-  subtree_checkout_repos = ["Subversion", "Cvs"]
+  require 'checkout/repository_patch'
 
   CheckoutHelper.supported_scm.each do |scm|
+    repo = Repository.const_get(scm)
+
     settings_defaults["description_#{scm}"] = ''
     settings_defaults["overwrite_description_#{scm}"] = '0'
     settings_defaults["display_command_#{scm}"] = '0'
@@ -59,12 +53,12 @@ EOF
     #   permission => Access depends on redmine permissions
     settings_defaults["protocols_#{scm}"] = [HashWithIndifferentAccess.new({
       :protocol => scm,
-      :command => commands[scm] || '',
+      :command => repo.checkout_default_command,
       :regex => '',
       :regex_replacement => '',
       :fixed_url => '',
       :access => 'permission',
-      :append_path => (subtree_checkout_repos.include?(scm) ? '1' : '0'),
+      :append_path => (repo.allow_subtree_checkout? ? '1' : '0'),
       :is_default => '1',
       :display_login => '0'
     })]
