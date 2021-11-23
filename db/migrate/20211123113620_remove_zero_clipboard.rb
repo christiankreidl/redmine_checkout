@@ -1,4 +1,4 @@
-class UpdateSettings < ActiveRecord::Migration
+class RemoveZeroClipboard < ActiveRecord::Migration[4.2]
   def self.up
     settings = Setting.plugin_redmine_checkout
     unless settings.class == Hash
