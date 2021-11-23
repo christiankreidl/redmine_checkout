@@ -10,7 +10,6 @@ hu:
   setting_checkout_url_regex: "Regular expression"
   setting_checkout_url_regex_replacement: "Csere szöveg"
   setting_checkout_command: "Kijelentkezõ parancs"
-  setting_checkout_use_zero_clipboard: "A vágólap súgó megjelenítése"
 
   setting_checkout_overwrite_description: "Alapértelmezett leírás felülírása"
   field_checkout_overwrite: "A kilépõ protokoll alapértelmezett beállításainak felülírása"
@@ -31,7 +30,6 @@ hu:
   label_display_login_username: "Bejelentkezés mutatása de a jelszó elrejtése"
   label_display_login_password: "Bejelentkezés és jelszó mutatása"
 
-  label_copy_to_clipboard: "Vágólapra másolás"
 
   help_checkout_protocols: |
     The URLs in protocols are generated from applying the regular expression

@@ -10,7 +10,6 @@ ro:
   setting_checkout_url_regex: "Expresie regulata (regexp)"
   setting_checkout_url_regex_replacement: "Text inlocuitor (regexp)"
   setting_checkout_command: "Comanda de checkout"
-  setting_checkout_use_zero_clipboard: "Display clipboard helper"
 
   setting_checkout_overwrite_description: "Overwrite default description"
   field_checkout_overwrite: "Overwrite default settings for checkout protocols"
@@ -31,7 +30,6 @@ ro:
   label_display_login_username: "Afiseaza username-ul, dar nu si parola"
   label_display_login_password: "Afiseaza atat username-ul, cat si parola"
 
-  label_copy_to_clipboard: "Copy to clipboard"
 
   help_checkout_protocols: |
     The URLs in protocols are generated from applying the regular expression

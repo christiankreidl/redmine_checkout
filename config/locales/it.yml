@@ -10,7 +10,6 @@ it:
   setting_checkout_url_regex: "Espressione regolare"
   setting_checkout_url_regex_replacement: "Testo sostituito"
   setting_checkout_command: "Comando per il checkout"
-  setting_checkout_use_zero_clipboard: "Visualizza l'utility per la copia negli appunti"
 
   setting_checkout_overwrite_description: "Sovrascrivi la descrizione predefinita"
   field_checkout_overwrite: "Sovrascrivi le impostazioni di checkout predefinite"
@@ -31,7 +30,6 @@ it:
   label_display_login_username: "Mostra il login senza password"
   label_display_login_password: "Mostra il login e la password"
 
-  label_copy_to_clipboard: "Copia negli appunti"
 
   help_checkout_protocols: |
     Gli URL dei protocolli sono generati applicando le espressioni regolari

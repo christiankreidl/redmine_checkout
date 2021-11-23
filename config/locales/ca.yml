@@ -10,7 +10,6 @@ ca:
   setting_checkout_url_regex: "Expressió regular"
   setting_checkout_url_regex_replacement: "Text de substitució"
   setting_checkout_command: "Ordre d'obtenció"
-  setting_checkout_use_zero_clipboard: 'Mostra el botó "Copia al porta-retalls"'
 
   setting_checkout_overwrite_description: "Sobreescriu la descripció per defecte"
   field_checkout_overwrite: "Sobreescriu els paràmetres per defecte pels protocols d'obtenció"
@@ -31,7 +30,6 @@ ca:
   label_display_login_username: "Mostra el nom d'usuari però no la contrasenya"
   label_display_login_password: "Mostra el nom d'usuari i la contrasenya"
 
-  label_copy_to_clipboard: "Copia al porta-retalls"
 
   help_checkout_protocols: |
     The URLs in protocols are generated from applying the regular expression

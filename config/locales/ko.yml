@@ -10,7 +10,6 @@ ko:
   setting_checkout_url_regex: "정규식"
   setting_checkout_url_regex_replacement: "대체 문자열"
   setting_checkout_command: "Checkout command"
-  setting_checkout_use_zero_clipboard: "Display clipboard helper"
   
   setting_checkout_overwrite_description: "Overwrite default description"
   field_checkout_overwrite: "Overwrite default settings for checkout protocols"
@@ -31,7 +30,6 @@ ko:
   label_display_login_username: "로그인은 보여주지만 비밀번호는 보여주지 않습니다."
   label_display_login_password: "로그인과 비밀번호를 보여줍니다."
 
-  label_copy_to_clipboard: "Copy to clipboard"
 
   help_checkout_protocols: |
     The URLs in protocols are generated from applying the regular expression

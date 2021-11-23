@@ -10,7 +10,6 @@ en:
   setting_checkout_url_regex: "Regular expression"
   setting_checkout_url_regex_replacement: "Replacement text"
   setting_checkout_command: "Checkout command"
-  setting_checkout_use_zero_clipboard: "Display clipboard helper"
 
   setting_checkout_overwrite_description: "Overwrite default description"
   field_checkout_overwrite: "Overwrite default settings for checkout protocols"
@@ -31,7 +30,6 @@ en:
   label_display_login_username: "Show login but no password"
   label_display_login_password: "Show login and password"
 
-  label_copy_to_clipboard: "Copy to clipboard"
 
   help_checkout_protocols: |
     The URLs in protocols are generated from applying the regular expression

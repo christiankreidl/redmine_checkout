@@ -10,7 +10,6 @@
 
         Please select the desired protocol below to get the URL.
       display_command_Bazaar: '1'
-      use_zero_clipboard: "1"
 
       overwrite_description_Bazaar: "0"
       description_Bazaar: ""

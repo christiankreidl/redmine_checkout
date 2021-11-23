@@ -28,8 +28,6 @@ Redmine::Plugin.register :redmine_checkout do
   requires_redmine :version_or_higher => '3.0.0'
 
   settings_defaults = HashWithIndifferentAccess.new({
-    'use_zero_clipboard' => '1',
-
     'display_checkout_info' =>  'everywhere',
     'description_Abstract' => <<-EOF
 The data contained in this repository can be downloaded to your computer using one of several clients.

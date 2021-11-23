@@ -10,7 +10,6 @@ fr:
   setting_checkout_url_regex: "Expression Régulière"
   setting_checkout_url_regex_replacement: "Texte de substitution"
   setting_checkout_command: "Commande pour copie locale du dépôt"
-  setting_checkout_use_zero_clipboard: "Afficher l'assistant presse-papier"
 
   setting_checkout_overwrite_description: "Passer outre la description par défaut"
   field_checkout_overwrite: "Passer outre les paramètres par défaut pour les protocoles de copie locale"
@@ -31,7 +30,6 @@ fr:
   label_display_login_username: "Afficher le login, pas le mot de passe"
   label_display_login_password: "Afficher le login et le mot de passe"
 
-  label_copy_to_clipboard: "Copier dans le presse-papier"
 
   help_checkout_protocols: |
     Les URLs dans les protocoles sont générées en appliquant l'expression

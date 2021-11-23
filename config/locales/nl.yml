@@ -10,7 +10,6 @@ nl:
   setting_checkout_url_regex: "Reguliere expressie"
   setting_checkout_url_regex_replacement: "Vervangingstekst"
   setting_checkout_command: "Checkout-opdracht"
-  setting_checkout_use_zero_clipboard: "Klembord-hulp tonen"
 
   setting_checkout_overwrite_description: "Standaard omschrijving overschrijven"
   field_checkout_overwrite: "Overschrijf standaard instellingen voor checkout-protocollen"
@@ -31,7 +30,6 @@ nl:
   label_display_login_username: "Toon login zonder wachtwoord"
   label_display_login_password: "Toon login en wachtwoord"
 
-  label_copy_to_clipboard: "Naar klembord kopiëren"
 
   help_checkout_protocols: |
     De URLs in protocollen worden samengesteld vanuit de originele URL, na

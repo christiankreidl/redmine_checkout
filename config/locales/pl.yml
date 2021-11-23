@@ -10,7 +10,6 @@ pl:
   setting_checkout_url_regex: "Wyrażenie regularne"
   setting_checkout_url_regex_replacement: "Wynikowy adres URL"
   setting_checkout_command: "Komenda pobrania repozytorium"
-  setting_checkout_use_zero_clipboard: "Pokaż pomocnika schowka"
 
   setting_checkout_overwrite_description: "Nadpisz domyślny opis"
   field_checkout_overwrite: "Nadpisz domyślne ustawienia dla protokołów"
@@ -31,7 +30,6 @@ pl:
   label_display_login_username: "Pokaż tylko login"
   label_display_login_password: "Pokaż login i hasło"
 
-  label_copy_to_clipboard: "Kopiuj do schowka"
 
   help_checkout_protocols: |
     Wynikowe adresy URL w protokołach są generowane przez zamianę oryginalnego
