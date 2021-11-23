@@ -15,7 +15,7 @@ module Checkout
     module InstanceMethods
       def edit_with_checkout
         if request.post? && params['tab'] == 'checkout'
-          if params[:settings] && params[:settings].is_a?(Hash)
+          if params['settings'] && params['settings'].is_a?(ActionController::Parameters)
             settings = HashWithIndifferentAccess.new
             (params[:settings] || {}).each do |name, value|
               if name = name.to_s.slice(/checkout_(.+)/, 1)
@@ -23,9 +23,9 @@ module Checkout
                 when Array
                   # remove blank values in array settings
                   value.delete_if {|v| v.blank? }
-                when Hash
+                when ActionController::Parameters
                   # change protocols hash to array.
-                  value = value.sort{|(ak,av),(bk,bv)|ak<=>bk}.collect{|id,protocol| protocol} if name.start_with? "protocols_"
+                  value = value.values() if name.start_with? "protocols_"
                 end
                 settings[name.to_sym] = value
               end

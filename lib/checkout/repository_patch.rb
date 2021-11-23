@@ -10,7 +10,7 @@ module Checkout
       base.class_eval do
         unloadable
         serialize :checkout_settings, Hash
-        
+
         safe_attributes 'checkout_settings',
           'checkout_overwrite',
           'checkout_description',
@@ -86,9 +86,9 @@ module Checkout
 
       def checkout_protocols=(value)
         # value is an Array or a Hash
-        if value.is_a? Hash
+        if value.is_a? ActiveSupport::HashWithIndifferentAccess
           value = value.dup.delete_if {|id, protocol| id.to_i < 0 }
-          value = value.sort{|(ak,av),(bk,bv)|ak<=>bk}.collect{|id,protocol| protocol}
+          value = value.values
         end
         self.checkout_settings ||= {}
         checkout_settings['checkout_protocols'] = value
