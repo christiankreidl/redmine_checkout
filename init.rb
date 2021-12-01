@@ -1,7 +1,7 @@
 require 'redmine'
 
 
-Rails.configuration.to_prepare do
+((Rails.version > "5")? ActiveSupport::Reloader : ActionDispatch::Callbacks).to_prepare do
   require_dependency 'checkout/settings_controller_patch'
 
   require_dependency 'checkout/repositories_helper_patch'
