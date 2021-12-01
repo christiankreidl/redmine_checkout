@@ -1,7 +1,7 @@
 $(document).ready(function(){
   /* update the checkout URL if clicked on a protocol */
   $('#checkout_box #checkout_protocols a').each(function(i) {
-    $(this).bind('click', function(event) {
+    $(this).on('click', function(event) {
       $('input#checkout_url').val(checkout_commands[$(this).attr('id')]);
       $('#checkout_box #checkout_protocols a').removeClass("selected");
       $(this).addClass("selected")
@@ -16,7 +16,7 @@ $(document).ready(function(){
   });
 
   /* select the text field contents if activated */
-  $('input#checkout_url').bind('click', function(event) {
+  $('input#checkout_url').on('click', function(event) {
     $(this).focus();
   });
 });

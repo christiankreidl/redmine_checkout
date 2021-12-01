@@ -7,18 +7,18 @@
     <ul id="checkout_protocols">
     <% protocols.each do |p| -%>
       <li>
-        <a class="<%= (p == default_protocol) ? 'selected' : '' %>" id="protocol_<%= p.protocol.to_s.underscore %>" data-permission="<%= p.access_rw(User.current) %>" href="<%= Addressable::URI.escape p.url(checkout_path) %>"><%=h p.protocol %></a>
+        <a class="<%= (p == default_protocol) ? 'selected' : '' %>" id="protocol_<%= p.protocol.to_s.underscore %>" data-permission="<%= p.access_rw(User.current) %>" href="#"><%=h p.protocol %></a>
       </li>
     <% end -%>
     </ul>
-    <%= text_field_tag :checkout_url, h(default_protocol.full_command(checkout_path)), :readonly => true %>
     <% if default_protocol -%>
-      <p><%= raw l :label_access_type, :type => raw("<span id=\"access\">#{l(default_protocol.access_label(User.current))}</span>") %></p>
+      <p><%= raw l :label_access_type, :type => raw("<span id=\"checkout_access\">#{l(default_protocol.access_label(User.current))}</span>") %></p>
     <%- end -%>
+    <%= text_field_tag :checkout_url, h(default_protocol.full_command(checkout_path)), :readonly => true %>
 
     <%= javascript_tag do -%>
-      var access   = {<%= protocols.inject([]){|r,p| r << "'protocol_#{p.protocol.to_s.underscore}': '#{l(p.access_label(User.current))}'"}.join(', ').html_safe %>};
-      var commands = {<%= protocols.inject([]){|r,p| r << "'protocol_#{p.protocol.to_s.underscore}': '#{escape_javascript(p.full_command(checkout_path))}'"}.join(', ').html_safe %>};
+      var checkout_access   = {<%= protocols.inject([]){|r,p| r << "'protocol_#{p.protocol.to_s.underscore}': '#{l(p.access_label(User.current))}'"}.join(', ').html_safe %>};
+      var checkout_commands = {<%= protocols.inject([]){|r,p| r << "'protocol_#{p.protocol.to_s.underscore}': '#{escape_javascript(p.full_command(checkout_path))}'"}.join(', ').html_safe %>};
     <% end %>
   </div>
   <% end %>

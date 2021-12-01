@@ -118,16 +118,15 @@ table.checkout_protocol_table td.protocol_display_login {
 
 input#checkout_url {
   border: 1px solid #bbb;
-  border-width: 1px 1px 1px 0;
+  border-width: 1px 1px 1px 1px;
   background-color: #fff;
   color: #000;
   font-size: 11px;
   height: 23px;
   padding: 3px 5px 2px;
-  width: calc(100% - 126px);
+  width: 100%;
   font-family: Monaco,"DejaVu Sans Mono","Bitstream Vera Sans Mono","Courier New",monospace;
   margin: 0 5px 0 0;
-  float: left;
 }
 
 #checkout_box p {
@@ -135,6 +134,7 @@ input#checkout_url {
   line-height: 23px;
   font-size: 11px;
   margin: 0 0 0 5px;
+  float: left;
 }
 
 span#checkout_access {
