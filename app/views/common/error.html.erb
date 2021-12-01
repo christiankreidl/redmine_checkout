@@ -1,10 +1,11 @@
+<% if params[:controller] == "repositories" && @project %>
+  <%= call_hook(:view_repositories_show_contextual, { :repository => @project.repository, :project => @project }) %>
+<% end %>
+
 <h2><%=h @status %></h2>
 
 <% if @message.present? %>
   <p id="errorExplanation"><%=h @message %></p>
-<% end %>
-<% if params[:controller] == "repositories" && @project %>
-  <%= call_hook(:view_repositories_show_contextual, { :repository => @project.repository, :project => @project }) %>
 <% end %>
 <p><a href="javascript:history.back()">Back</a></p>
 
