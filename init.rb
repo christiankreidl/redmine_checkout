@@ -1,21 +1,39 @@
 require 'redmine'
 
+if Rails.version > '6.0'
+  Rails.application.config.after_initialize do
+    require_relative 'lib/checkout/settings_controller_patch'
 
-((Rails.version > "5")? ActiveSupport::Reloader : ActionDispatch::Callbacks).to_prepare do
-  require_dependency 'checkout/settings_controller_patch'
+    require_relative 'lib/checkout/repositories_helper_patch'
+    require_relative 'lib/checkout/repository_patch'
 
-  require_dependency 'checkout/repositories_helper_patch'
-  require_dependency 'checkout/repository_patch'
+    require_relative 'lib/checkout/settings_helper_patch'
+    require_relative 'lib/checkout/setting_patch'
+  end
 
-  require_dependency 'checkout/settings_helper_patch'
-  require_dependency 'checkout/setting_patch'
+  # Hooks
+  require_relative 'lib/checkout/repository_hooks'
+ 
+  # Helpers
+  require_relative 'lib/checkout/view_helper'
+
+else
+  ((Rails.version > "5")? ActiveSupport::Reloader : ActionDispatch::Callbacks).to_prepare do
+   require_dependency 'checkout/settings_controller_patch'
+
+   require_dependency 'checkout/repositories_helper_patch'
+   require_dependency 'checkout/repository_patch'
+
+   require_dependency 'checkout/settings_helper_patch'
+   require_dependency 'checkout/setting_patch'
+  end
+
+  # Hooks
+  require 'checkout/repository_hooks'
+
+  # Helpers
+  require 'checkout/view_helper'
 end
-
-# Hooks
-require 'checkout/repository_hooks'
-
-# Helpers
-require 'checkout/view_helper'
 
 Redmine::Plugin.register :redmine_checkout do
   name 'Redmine Checkout plugin'
@@ -38,7 +56,8 @@ EOF
   })
 
   # this is needed for setting the defaults
-  require 'checkout/repository_patch'
+    require_relative 'lib/checkout/repository_patch'
+#  require 'checkout/repository_patch'
 
   CheckoutHelper.supported_scm.each do |scm|
     repo = Repository.const_get(scm)

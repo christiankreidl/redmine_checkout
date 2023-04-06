@@ -1,5 +1,3 @@
-require_dependency 'repositories_helper'
-
 module Checkout
   module RepositoriesHelperPatch
     def self.included(base) # :nodoc:

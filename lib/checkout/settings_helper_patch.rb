@@ -1,5 +1,3 @@
-require_dependency 'settings_helper'
-
 module Checkout
   module SettingsHelperPatch
     def self.included(base) # :nodoc:

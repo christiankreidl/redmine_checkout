@@ -1,5 +1,3 @@
-require_dependency 'setting'
-
 module Checkout
   module SettingPatch
     def self.included(base) # :nodoc:

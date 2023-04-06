@@ -1,5 +1,3 @@
-require_dependency 'settings_controller'
-
 module Checkout
   module SettingsControllerPatch
     def self.included(base) # :nodoc:

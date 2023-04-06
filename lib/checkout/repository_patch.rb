@@ -1,6 +1,3 @@
-require_dependency 'repository'
-require_dependency 'checkout_helper'
-
 module Checkout
   module RepositoryPatch
     def self.included(base) # :nodoc:
