@@ -2,10 +2,8 @@ module Checkout
   module SettingPatch
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
-      
+
       base.class_eval do
-        unloadable
-        
         # Defines getter and setter for each setting
         # Then setting values can be read using: Setting.some_setting_name
         # or set using Setting.some_setting_name = "some value"
@@ -21,7 +19,7 @@ module Checkout
               end
             END_SRC
           end
-          
+
           src = <<-END_SRC
             def self.checkout_#{name}
               self.plugin_redmine_checkout[:#{name}] || #{default}
@@ -39,17 +37,17 @@ module Checkout
           END_SRC
           class_eval src, __FILE__, __LINE__
         end
-        
+
         class <<self
           alias_method :store_without_checkout, :[]=
           alias_method :[]=, :store_with_checkout
-          
+
           alias_method :retrieve_without_checkout, :[]
           alias_method :[], :retrieve_with_checkout
         end
       end
     end
-    
+
     module ClassMethods
       def store_with_checkout(name, value)
         if name.to_s.starts_with? "checkout_"
@@ -58,7 +56,7 @@ module Checkout
           store_without_checkout(name, value)
         end
       end
-      
+
       def retrieve_with_checkout(name)
         if name.to_s.starts_with? "checkout_"
           self.send("#{name}")

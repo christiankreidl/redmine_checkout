@@ -5,8 +5,7 @@ module Checkout
       base.send(:include, InstanceMethods)
 
       base.class_eval do
-        unloadable
-        serialize :checkout_settings, Hash
+        serialize :checkout_settings
 
         safe_attributes 'checkout_settings',
           'checkout_overwrite',
@@ -167,8 +166,7 @@ CheckoutHelper.supported_scm.each do |scm|
       base.extend ChildClassMethods
 
       base.class_eval do
-        unloadable
-        serialize :checkout_settings, Hash
+        serialize :checkout_settings
       end
     end
 

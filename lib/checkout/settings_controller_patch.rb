@@ -3,10 +3,9 @@ module Checkout
     def self.included(base) # :nodoc:
       base.class_eval do
         prepend InstanceMethods
-        unloadable
       end
     end
-    
+
     module InstanceMethods
       # when saving plugin settings:
       def plugin
@@ -25,7 +24,7 @@ module Checkout
                 settings[name.to_sym] = value
               end
             end
-                        
+
             Setting.plugin_redmine_checkout = settings
             params[:settings] = settings
           end
