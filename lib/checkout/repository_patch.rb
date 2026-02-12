@@ -6,6 +6,7 @@ module Checkout
 
       base.class_eval do
         serialize :checkout_settings
+        after_initialize :create_empty_settings
 
         safe_attributes 'checkout_settings',
           'checkout_overwrite',
@@ -28,12 +29,11 @@ module Checkout
     end
 
     module InstanceMethods
-      def after_initialize
-        self.checkout_settings ||= {}
+      def create_empty_settings
+        self.checkout_settings ||= Hash.new
       end
 
       def checkout_overwrite=(value)
-        self.checkout_settings ||= {}
         checkout_settings['checkout_overwrite'] = value
       end
 
@@ -46,7 +46,6 @@ module Checkout
       end
 
       def checkout_description=(value)
-        self.checkout_settings ||= {}
         checkout_settings['checkout_description'] = value
       end
 
@@ -86,7 +85,6 @@ module Checkout
           value = value.dup.delete_if {|id, protocol| id.to_i < 0 }
           value = value.values
         end
-        self.checkout_settings ||= {}
         checkout_settings['checkout_protocols'] = value
       end
 
@@ -95,7 +93,6 @@ module Checkout
       end
 
       def checkout_display_command=(value)
-        self.checkout_settings ||= {}
         checkout_settings['checkout_display_command'] = value
       end
 
