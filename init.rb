@@ -1,39 +1,24 @@
 require 'redmine'
 
-if Rails.version > '6.0'
-  Rails.application.config.after_initialize do
-    require_relative 'lib/checkout/settings_controller_patch'
-
-    require_relative 'lib/checkout/repositories_helper_patch'
-    require_relative 'lib/checkout/repository_patch'
-
-    require_relative 'lib/checkout/settings_helper_patch'
-    require_relative 'lib/checkout/setting_patch'
-  end
-
-  # Hooks
-  require_relative 'lib/checkout/repository_hooks'
- 
-  # Helpers
-  require_relative 'lib/checkout/view_helper'
-
-else
-  ((Rails.version > "5")? ActiveSupport::Reloader : ActionDispatch::Callbacks).to_prepare do
-   require_dependency 'checkout/settings_controller_patch'
-
-   require_dependency 'checkout/repositories_helper_patch'
-   require_dependency 'checkout/repository_patch'
-
-   require_dependency 'checkout/settings_helper_patch'
-   require_dependency 'checkout/setting_patch'
-  end
-
-  # Hooks
-  require 'checkout/repository_hooks'
-
-  # Helpers
-  require 'checkout/view_helper'
+unless Repository.included_modules.include?(Checkout::RepositoryPatch)
+  Repository.send(:include, Checkout::RepositoryPatch)
 end
+
+unless RepositoriesHelper.included_modules.include?(Checkout::RepositoriesHelperPatch)
+  RepositoriesHelper.send(:include, Checkout::RepositoriesHelperPatch)
+end
+
+unless SettingsController.included_modules.include?(Checkout::SettingsControllerPatch)
+  SettingsController.send(:include, Checkout::SettingsControllerPatch)
+end
+
+unless SettingsHelper.included_modules.include?(Checkout::SettingsHelperPatch)
+  SettingsHelper.send(:include, Checkout::SettingsHelperPatch)
+end
+
+# Hooks
+require_relative 'lib/checkout/repository_hooks'
+
 
 Redmine::Plugin.register :redmine_checkout do
   name 'Redmine Checkout plugin'
@@ -43,7 +28,7 @@ Redmine::Plugin.register :redmine_checkout do
   description 'Add links to the actual repository to the repository view.'
   version '0.7'
 
-  requires_redmine :version_or_higher => '4.0.0'
+  requires_redmine :version_or_higher => '5.0.0'
 
   settings_defaults = HashWithIndifferentAccess.new({
     'display_checkout_info' =>  'everywhere',
@@ -54,10 +39,6 @@ Please see the documentation of your version control software client for more in
 Please select the desired protocol below to get the URL.
 EOF
   })
-
-  # this is needed for setting the defaults
-    require_relative 'lib/checkout/repository_patch'
-#  require 'checkout/repository_patch'
 
   CheckoutHelper.supported_scm.each do |scm|
     repo = Repository.const_get(scm)
@@ -118,4 +99,8 @@ EOF
       (cmd + link_to(proto_obj.url, proto_obj.url)).html_safe
     end
   end
+end
+
+unless Setting.included_modules.include?(Checkout::SettingPatch)
+  Setting.send(:include, Checkout::SettingPatch)
 end

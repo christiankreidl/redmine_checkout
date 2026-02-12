@@ -27,6 +27,3 @@ module Checkout
     end
   end
 end
-
-RepositoriesHelper.send(:include, Checkout::RepositoriesHelperPatch)
-

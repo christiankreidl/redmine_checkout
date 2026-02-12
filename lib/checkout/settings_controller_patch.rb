@@ -33,5 +33,3 @@ module Checkout
     end
   end
 end
-
-SettingsController.send(:include, Checkout::SettingsControllerPatch)

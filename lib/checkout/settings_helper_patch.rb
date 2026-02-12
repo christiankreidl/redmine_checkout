@@ -14,6 +14,3 @@ module Checkout
     end
   end
 end
-
-SettingsHelper.send(:include, Checkout::SettingsHelperPatch)
-

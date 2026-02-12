@@ -126,8 +126,6 @@ module Checkout
   end
 end
 
-Repository.send(:include, Checkout::RepositoryPatch)
-
 subtree_checkout_repos = ["Subversion", "Cvs"]
 commands = {
   'Bazaar' => 'bzr checkout',

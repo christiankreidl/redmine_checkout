@@ -67,5 +67,3 @@ module Checkout
     end
   end
 end
-
-Setting.send(:include, Checkout::SettingPatch)
