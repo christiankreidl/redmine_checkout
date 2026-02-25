@@ -12,10 +12,6 @@ unless SettingsController.included_modules.include?(Checkout::SettingsController
   SettingsController.send(:include, Checkout::SettingsControllerPatch)
 end
 
-unless SettingsHelper.included_modules.include?(Checkout::SettingsHelperPatch)
-  SettingsHelper.send(:include, Checkout::SettingsHelperPatch)
-end
-
 # Hooks
 require_relative 'lib/checkout/repository_hooks'
 
